@@ -17,6 +17,10 @@ export default class Rm implements CommandInterface {
     required: true
   }] as SlashCommandArgument[]
   async run(message:CommandMessage, options:CommandArgs){
+    if(options.data[message.guild.id].enableTts){
+      message.reply("TTSがオンです").catch(e => log(e, "error"));
+      return;
+    };
     options.updateBoundChannel(message);
     if(options.args.length == 0){
       message.reply("引数に消去する曲のオフセット(番号)を入力してください。").catch(e => log(e, "error"));

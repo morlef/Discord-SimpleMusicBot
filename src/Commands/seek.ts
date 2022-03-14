@@ -17,6 +17,10 @@ export default class Seek implements CommandInterface {
     required: true
   }] as SlashCommandArgument[];
   async run(message:CommandMessage, options:CommandArgs){
+    if(options.data[message.guild.id].enableTts){
+      message.reply("TTSがオンです").catch(e => log(e, "error"));
+      return;
+    };
     options.updateBoundChannel(message);
     const server = options.data[message.guild.id];
     // そもそも再生状態じゃないよ...

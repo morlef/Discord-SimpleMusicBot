@@ -95,7 +95,8 @@ export class PlayManager extends ManagerBase {
     let mes:Message = null;
     let ch:TextChannel = null;
     this.CurrentAudioInfo = this.info.Queue.get(0).BasicInfo;
-    if(this.info.boundTextChannel){
+    const coolPlay = this.CurrentAudioInfo.isCustomStream() && this.CurrentAudioInfo.coolInit;
+    if(this.info.boundTextChannel && !coolPlay){
       ch = await this.client.channels.fetch(this.info.boundTextChannel) as TextChannel;
       const [min, sec] = CalcMinSec(this.CurrentAudioInfo.LengthSeconds);
       const isLive = this.CurrentAudioInfo.isYouTube() && this.CurrentAudioInfo.LiveStream;
@@ -113,7 +114,7 @@ export class PlayManager extends ManagerBase {
       // 情報からストリームを作成
       const resource = this.ResolveStream(rawStream, time);
       const stream = FixedAudioResource.fromAudioResource(resource, this.CurrentAudioInfo.LengthSeconds);
-      this.HandleEvents(stream, /* errorReportChannel */ mes.channel);
+      this.HandleEvents(stream, /* errorReportChannel */ mes && mes.channel || null);
       this.Log("Stream edges: Raw -> " + stream.edges.map(e => e.type).join(" -> ") + " ->");
       // fetchおよび処理中に切断された場合処理を終了
       const connection = voice.getVoiceConnection(this.info.GuildID);
@@ -205,6 +206,7 @@ export class PlayManager extends ManagerBase {
     }else{
       this.Log("Disconnect() called but no connection", "warn");
     }
+    this.info.enableTts = false;
     return this;
   }
 
@@ -281,7 +283,7 @@ export class PlayManager extends ManagerBase {
             log(StringifyObject(einfo), "error");
           }
         }
-        errorReportChannel.send(":tired_face:曲の再生に失敗しました...。" + ((this.errorCount + 1) >= this.retryLimit ? "スキップします。" : "再試行します。"));
+        errorReportChannel && errorReportChannel.send(":tired_face:曲の再生に失敗しました...。" + ((this.errorCount + 1) >= this.retryLimit ? "スキップします。" : "再試行します。"));
         this.onStreamFailed();
       })
       .on("end", () => {
@@ -421,6 +423,7 @@ export class PlayManager extends ManagerBase {
     // キューがなくなったら接続終了
     if(this.info.Queue.length === 0){
       this.Log("Queue empty");
+      if(this.info.enableTts) return;
       if(this.info.boundTextChannel){
         this.client.channels.fetch(this.info.boundTextChannel).then(ch => {
           (ch as TextChannel).send(":wave:キューが空になったため終了します").catch(e => log(e, "error"));

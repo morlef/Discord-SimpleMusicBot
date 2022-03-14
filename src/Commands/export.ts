@@ -15,7 +15,10 @@ export default class Export implements CommandInterface {
     if(options.data[message.guild.id].Queue.length === 0){
       message.reply("キューが空です。").catch(e => log(e, "error"));
       return;
-    }
+    }else if(options.data[message.guild.id].enableTts){
+      message.reply("TTSがオンです").catch(e => log(e, "error"));
+      return;
+    };
     const qd = options.bot.exportQueue(message.guild.id);
     message.reply({
       content:"✅エクスポートしました", 

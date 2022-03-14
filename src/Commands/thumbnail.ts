@@ -19,6 +19,10 @@ export default class Thumbnail implements CommandInterface {
     required: false
   }] as SlashCommandArgument[];
   async run(message:CommandMessage, options:CommandArgs){
+    if(options.data[message.guild.id].enableTts){
+      message.reply("TTSがオンです").catch(e => log(e, "error"));
+      return;
+    };
     options.updateBoundChannel(message);
     const embed = new discord.MessageEmbed();
     embed.setColor(getColor("THUMB"));

@@ -9,6 +9,10 @@ export default class Mltf implements CommandInterface {
   unlist = false;
   category = "playlist";
   async run(message:CommandMessage, options:CommandArgs){
+    if(options.data[message.guild.id].enableTts){
+      message.reply("TTSがオンです").catch(e => log(e, "error"));
+      return;
+    };
     options.updateBoundChannel(message);
     if(options.data[message.guild.id].Queue.length <= 2){
       message.reply("キューに3曲以上追加されているときに使用できます。").catch(e=>log(e, "error"));

@@ -9,6 +9,10 @@ export default class Rmall implements CommandInterface {
   unlist = false;
   category = "playlist";
   async run(message:CommandMessage, options:CommandArgs){
+    if(options.data[message.guild.id].enableTts){
+      message.reply("TTSがオンです").catch(e => log(e, "error"));
+      return;
+    };
     options.updateBoundChannel(message);
     if(!message.member.voice.channel || (message.member.voice.channel && !message.member.voice.channel.members.has(options.client.user.id))){
       if(!message.member.permissions.has("MANAGE_GUILD") && !message.member.permissions.has("MANAGE_CHANNELS")){

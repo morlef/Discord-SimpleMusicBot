@@ -51,6 +51,10 @@ export class GuildDataContainer{
    * オーディオエフェクトエフェクトの設定
    */
   EffectPrefs:AudioEffect;
+  /**
+   * テキスト読み上げが有効かどうか
+   */
+  enableTts:boolean;
 
   constructor(client:Client, guildid:string, boundchannelid:string, bot:MusicBot){
     this.SearchPanel = null;

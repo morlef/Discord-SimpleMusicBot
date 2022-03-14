@@ -10,6 +10,11 @@ export default class Effect implements CommandInterface {
   unlist = false;
   category = "player";
   async run(message:CommandMessage, options:CommandArgs){
+    const server = options.data[message.guild.id];
+    if(server.enableTts){
+      message.reply("TTSがオンです").catch(e => log(e, "error"));
+      return;
+    };
     options.updateBoundChannel(message);
     try{
       const {embed, messageActions } = getCurrentEffectPanel(message.author.avatarURL(), options.data[message.guild.id]);

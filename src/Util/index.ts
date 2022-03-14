@@ -7,7 +7,7 @@ import type { Client, GuildMember, Message, TextChannel } from "discord.js";
 import { PassThrough, Readable } from "stream";
 import { DefaultUserAgent } from "./ua";
 export { log, logStore, timer } from "./logUtil";
-export * as config from "./configUtil";
+export { default as config } from "./configUtil";
 
 /**
  * 合計時間(秒)からゼロ補完された分および秒を計算します。

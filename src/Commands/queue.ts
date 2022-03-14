@@ -19,6 +19,10 @@ export default class Queue implements CommandInterface {
     required: false
   }] as SlashCommandArgument[];
   async run(message:CommandMessage, options:CommandArgs){
+    if(options.data[message.guild.id].enableTts){
+      message.reply("TTSがオンです").catch(e => log(e, "error"));
+      return;
+    };
     options.updateBoundChannel(message);
     const msg = await message.reply(":eyes: キューを確認しています。お待ちください...");
     const queue = options.data[message.guild.id].Queue;

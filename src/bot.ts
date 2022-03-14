@@ -4,6 +4,7 @@ import type { CommandArgs } from "./Commands";
 import { execSync } from "child_process";
 import * as discord from "discord.js";
 import * as voice from "@discordjs/voice";
+import { getAllAudioUrls } from "google-tts-api";
 import * as ytpl from "ytpl";
 import { CommandsManager } from "./Commands";
 import { PageToggle } from "./Component/PageToggle";
@@ -261,6 +262,18 @@ export class MusicBot extends LogEmitter {
       this.cancellations.forEach(c => c.GuildId === message.guild.id && c.Cancel());
       await message.channel.send("処理中の処理をすべてキャンセルしています....")
         .catch(e => this.Log(e, "error"));
+    }else if(!message.content.startsWith(";") && this.data[message.guild.id].enableTts){
+      const server = this.data[message.guild.id];
+      if(server.boundTextChannel !== message.channel.id) return;
+      const urls = getAllAudioUrls(message.content, {lang: "ja"});
+      for(let i = 0; i < urls.length; i++){
+        await server.Queue.AddQueue(urls[i].url, message.member, "push", "custom", {
+          title: urls[i].shortText,
+          url: urls[i].url,
+          length: 0
+        });
+        server.Player.Play();
+      }
     }
   }
 

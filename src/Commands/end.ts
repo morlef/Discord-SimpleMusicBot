@@ -11,7 +11,10 @@ export default class End implements CommandInterface {
   async run(message:CommandMessage, options:CommandArgs){
     options.updateBoundChannel(message);
     const guild = options.data[message.guild.id];
-    if(!guild.Player.IsPlaying){
+    if(guild.enableTts){
+      message.reply("TTSがオンです").catch(e => log(e, "error"));
+      return;
+    }else if(!guild.Player.IsPlaying){
       message.reply("再生中ではありません").catch(e => log(e, "error"));
       return;
     }

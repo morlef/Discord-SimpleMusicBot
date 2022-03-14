@@ -21,6 +21,10 @@ export default class Import implements CommandInterface {
     required: true
   }] as SlashCommandArgument[]
   async run(message:CommandMessage, options:CommandArgs){
+    if(options.data[message.guild.id].enableTts){
+      message.reply("TTSがオンです").catch(e => log(e, "error"));
+      return;
+    };
     options.updateBoundChannel(message);
     if(options.rawArgs === ""){
       message.reply("❓インポート元のキューが埋め込まれたメッセージのURLを引数として渡してください。").catch(e => log(e, "error"));

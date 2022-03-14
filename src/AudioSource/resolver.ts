@@ -18,7 +18,7 @@ export async function Resolve(info:AudioSourceBasicInfo){
     basicInfo = await AudioSource.initYouTube(url, gotData as AudioSource.exportableYouTube, cache);
   }else if(type === "custom" || (type === "unknown" && isAvailableRawAudioURL(url))){
     // カスタムストリーム
-    basicInfo = await new AudioSource.CustomStream().init(url);
+    basicInfo = await new AudioSource.CustomStream().init(url, gotData);
   }else if(type === "soundcloud" || AudioSource.SoundCloudS.validateUrl(url)){
     // soundcloud
     basicInfo = await new AudioSource.SoundCloudS().init(url, gotData as AudioSource.exportableSoundCloud);

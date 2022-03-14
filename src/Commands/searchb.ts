@@ -10,6 +10,10 @@ export default class Searchb implements CommandInterface {
   alias = ["seb", "sb"];
   unlist = true;
   async run(message:CommandMessage, options:CommandArgs){
+    if(options.data[message.guild.id].enableTts){
+      message.reply("TTSがオンです").catch(e => log(e, "error"));
+      return;
+    };
     options.updateBoundChannel(message);
     options.JoinVoiceChannel(message);
     if(options.data[message.guild.id].SearchPanel !== null){

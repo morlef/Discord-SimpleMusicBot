@@ -9,6 +9,10 @@ export default class Loop implements CommandInterface {
   unlist = false;
   category = "player";
   async run(message:CommandMessage, options:CommandArgs){
+    if(options.data[message.guild.id].enableTts){
+      message.reply("TTSがオンです").catch(e => log(e, "error"));
+      return;
+    };
     options.updateBoundChannel(message);
     if(options.data[message.guild.id].Queue.LoopEnabled){
       options.data[message.guild.id].Queue.LoopEnabled = false;

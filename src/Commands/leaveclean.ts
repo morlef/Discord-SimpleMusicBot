@@ -11,6 +11,10 @@ export default class LeaveClean implements CommandInterface {
   unlist = false;
   category = "playlist";
   async run(message:CommandMessage, options:CommandArgs){
+    if(options.data[message.guild.id].enableTts){
+      message.reply("TTSがオンです").catch(e => log(e, "error"));
+      return;
+    };
     options.updateBoundChannel(message);
     if(!options.data[message.guild.id].Player.IsConnecting){
       options.data[message.guild.id].Queue.RemoveAll();
