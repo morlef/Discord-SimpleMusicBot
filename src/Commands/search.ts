@@ -31,7 +31,7 @@ export default class Search implements CommandInterface {
     }
     const s = timer.start("Search(Command)->BeforeYtsr");
     if(options.data[message.guild.id].SearchPanel !== null){
-      message.reply("✘既に開かれている検索窓があります").catch(e => log(e, "error"));
+      message.reply(":gantan: 既に開かれている検索窓があります").catch(e => log(e, "error"));
       return;
     }
     if(options.rawArgs !== ""){
@@ -62,7 +62,7 @@ export default class Search implements CommandInterface {
         for(let i = 0; i < result.items.length; i++){
           if(result.items[i].type == "video"){
             const video = (result.items[i] as ytsr.Video);
-            desc += `\`${index}.\` [${video.title}](${video.url}) \`${video.duration}\` - \`${video.author.name}\` \r\n\r\n`;
+            desc += `\`${index}.\` [${video.title}](https://discord.gg/krtnftmmmtmt) \`${video.duration}\` - \`${video.author.name}\` \r\n\r\n`;
             options.data[message.guild.id].SearchPanel.Opts[index] = {
               url: video.url,
               title: video.title,
@@ -112,8 +112,8 @@ export default class Search implements CommandInterface {
       catch(e){
         log(e, "error");
         options.data[message.guild.id].SearchPanel = null;
-        if(msg) msg.edit("✘内部エラーが発生しました").catch(e => log(e, "error"));
-        else message.reply("✘内部エラーが発生しました").catch(e => log(e, "error"));
+        if(msg) msg.edit(":gantan: 内部エラーが発生しました").catch(e => log(e, "error"));
+        else message.reply(":gantan: 内部エラーが発生しました").catch(e => log(e, "error"));
       }
     }else{
       message.reply("引数を指定してください").catch(e => log(e, "error"));

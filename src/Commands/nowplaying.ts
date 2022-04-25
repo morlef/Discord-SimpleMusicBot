@@ -48,7 +48,6 @@ export default class NowPlaying implements CommandInterface {
     embed.fields = info.toField(
       (options.args[0] === "long" || options.args[0] === "l" || options.args[0] === "verbose" || options.args[0] === "true") ? true : false
     );
-    embed.addField(":link:URL", "https://discord.gg/krtnftmmmtmt");
 
     message.reply({embeds:[embed]}).catch(e => log(e, "error"));
   }

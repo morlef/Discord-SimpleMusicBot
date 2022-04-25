@@ -65,7 +65,7 @@ export default class Play implements CommandInterface {
         await message.reply("すでに再生中です");
       }
     }else{
-      await message.reply("✘キューが空です").catch(e => log(e, "error"));
+      await message.reply(":gantan: キューが空です").catch(e => log(e, "error"));
     }
   }
 }

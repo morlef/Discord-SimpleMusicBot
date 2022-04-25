@@ -64,7 +64,7 @@ export default class Frame implements CommandInterface {
     }
     catch(e){
       log(StringifyObject(e), "error");
-      message.channel.send(":sob:失敗しました...").catch(e => log(e, "error"));
+      message.channel.send(":sob_tan:失敗しました...").catch(e => log(e, "error"));
     }
   }
 }

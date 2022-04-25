@@ -69,7 +69,7 @@ export default class Import implements CommandInterface {
         }else if(attac && attac.name.endsWith(".ymx")){
           const raw = JSON.parse(await DownloadText(attac.url)) as YmxFormat;
           if(raw.version !== YmxVersion){
-            await smsg.edit("✘指定されたファイルはバージョンに互換性がないためインポートできません(現行:v" + YmxVersion + "; ファイル:v" + raw.version + ")");
+            await smsg.edit(":gantan: 指定されたファイルはバージョンに互換性がないためインポートできません(現行:v" + YmxVersion + "; ファイル:v" + raw.version + ")");
             return;
           }
           const qs = raw.data;

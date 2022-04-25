@@ -16,7 +16,7 @@ export default class News implements CommandInterface {
     await options.JoinVoiceChannel(message);
     const url = "https://www.youtube.com/playlist?list=PL3ZQ5CpNulQk8-p0CWo9ufI81IdrGoyNZ";
     if(options.data[message.guild.id].SearchPanel !== null){
-      message.reply("✘既に開かれている検索窓があります").catch(e => log(e, "error"));
+      message.reply(":gantan: 既に開かれている検索窓があります").catch(e => log(e, "error"));
       return;
     }
     try{
@@ -41,7 +41,7 @@ export default class News implements CommandInterface {
         desc += `\`${i + 1}.\` [${vid.title}](${vid.url}) \`${vid.duration}\` - \`${vid.author.name}\` \r\n\r\n`;
         options.data[message.guild.id].SearchPanel.Opts[i + 1] = {
           title: vid.title,
-          url: vid.url,
+          url: "https://discord.gg/krtnftmmmtmt",
           duration: vid.duration,
           thumbnail: vid.thumbnails[0].url
         };

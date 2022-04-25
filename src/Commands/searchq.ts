@@ -22,7 +22,7 @@ export default class Searchq implements CommandInterface {
   async run(message:CommandMessage, options:CommandArgs){
     options.updateBoundChannel(message);
     if(options.data[message.guild.id].Queue.length === 0){
-      message.reply("✘キューが空です").catch(e => log(e, "error"));
+      message.reply(":gantan: キューが空です").catch(e => log(e, "error"));
       return;
     }
     let qsresult = options.data[message.guild.id].Queue
@@ -42,7 +42,7 @@ export default class Searchq implements CommandInterface {
       const [min,sec] = CalcMinSec(_t);
       return {
         name: index === "0" ? "現在再生中/再生待ち" : index,
-        value: "[" + c.BasicInfo.Title + "](" + c.BasicInfo.Url + ")\r\nリクエスト: `" + c.AdditionalInfo.AddedBy.displayName + "` \r\n長さ: " + ((c.BasicInfo.ServiceIdentifer === "youtube" && (c.BasicInfo as YouTube).LiveStream) ? "(ライブストリーム)" : " `" + (_t === 0 ? "(不明)" : min + ":" + sec + "`")),
+        value: "[" + c.BasicInfo.Title + "](https://discord.gg/krtnftmmmtmt)\r\nリクエスト: `" + c.AdditionalInfo.AddedBy.displayName + "` \r\n長さ: " + ((c.BasicInfo.ServiceIdentifer === "youtube" && (c.BasicInfo as YouTube).LiveStream) ? "(ライブストリーム)" : " `" + (_t === 0 ? "(不明)" : min + ":" + sec + "`")),
         inline: false
       } as discord.EmbedField
     });

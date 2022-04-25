@@ -216,7 +216,7 @@ export class QueueManager extends ManagerBase {
       this.Log("AutoAddQueue() Failed");
       this.Log(StringifyObject(e), "error");
       if(msg){
-        msg.edit({content: ":weary: キューの追加に失敗しました。追加できませんでした。(" + e + ")", embeds: null}).catch(e => log(e, "error"));
+        msg.edit({content: ":sob_tan: キューの追加に失敗しました。追加できませんでした。(" + e + ")", embeds: null}).catch(e => log(e, "error"));
       }
       t.end();
       return false;
@@ -263,7 +263,7 @@ export class QueueManager extends ManagerBase {
         (totalCount <= 50 && index % 10 === 0) || 
         totalCount <= 10
       ){
-        await msg.edit(":hourglass_flowing_sand:プレイリスト`" + title + "`を処理しています。お待ちください。" + totalCount + "曲中" + index + "曲処理済み。");
+        await msg.edit(":sleeping_tan:プレイリスト`" + title + "`を処理しています。お待ちください。" + totalCount + "曲中" + index + "曲処理済み。");
       }
       if(cancellation.Cancelled)
         break;

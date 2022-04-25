@@ -12,7 +12,7 @@ export default class Join implements CommandInterface {
   async run(message:CommandMessage, options:CommandArgs){
     options.updateBoundChannel(message);
     if(message.member.voice.channel && message.member.voice.channel.members.has(options.client.user.id) && voice.getVoiceConnection(message.guild.id)){
-      message.reply("✘すでにボイスチャンネルに接続中です。").catch(e => log(e, "error"));
+      message.reply(":gantan: すでにボイスチャンネルに接続中です。").catch(e => log(e, "error"));
     }else{
       options.JoinVoiceChannel(message, true);
     }

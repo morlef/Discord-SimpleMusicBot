@@ -16,7 +16,7 @@ export default class Bgm implements CommandInterface {
     if(!(await options.JoinVoiceChannel(message, /* reply */ false, /* reply when failed */ true))) return;
     const url = "https://www.youtube.com/playlist?list=PLLffhcApso9xIBMYq55izkFpxS3qi9hQK";
     if(options.data[message.guild.id].SearchPanel !== null){
-      message.reply("✘既に開かれている検索窓があります").catch(e => log(e, "error"));
+      message.reply(":gantan: 既に開かれている検索窓があります").catch(e => log(e, "error"));
       return;
     }
     try{

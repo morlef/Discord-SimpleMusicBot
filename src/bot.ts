@@ -380,13 +380,13 @@ export class MusicBot extends LogEmitter {
         guild.Player.Disconnect();
         const bound = await this.client.channels.fetch(guild.boundTextChannel).catch(() => null) as discord.TextChannel;
         if(!bound) return;
-        await bound.send(":postbox: 正常に切断しました").catch(e => this.Log(e));
+        await bound.send(":sacl1442pts: 正常に切断しました").catch(e => this.Log(e));
       }else if(!oldState.channelId && (newState.suppress || newState.serverMute)){
         // VC参加
         newState.setMute(false).catch(async () => {
           newState.setSuppressed(false).catch(async () => {
             const ch = await this.client.channels.fetch(guild.boundTextChannel) as discord.TextChannel;
-            ch.send(":sob:発言が抑制されています。音楽を聞くにはサーバー側ミュートを解除するか、[メンバーをミュート]権限を渡してください。").catch(e => this.Log(e));
+            ch.send(":sob_tan:発言が抑制されています。音楽を聞くにはサーバー側ミュートを解除するか、[メンバーをミュート]権限を渡してください。").catch(e => this.Log(e));
           })
         });
       }
@@ -615,7 +615,7 @@ export class MusicBot extends LogEmitter {
         return;
       }
       catch(e){
-        await smsg.edit(`✘追加できませんでした(${StringifyObject(e)})`).catch(e => this.Log(e ,"error"));
+        await smsg.edit(`:gantan: 追加できませんでした(${StringifyObject(e)})`).catch(e => this.Log(e ,"error"));
       }
     }else if(isAvailableRawAudioURL(optiont)){
       // オーディオファイルへの直リンク？
@@ -625,7 +625,7 @@ export class MusicBot extends LogEmitter {
     }else if(optiont.indexOf("v=") < 0 && optiont.indexOf("/channel/") < 0 && ytpl.validateID(optiont)){
       //違うならYouTubeプレイリストの直リンクか？
       const id = await ytpl.getPlaylistID(optiont);
-      const msg = await message.reply(":hourglass_flowing_sand:プレイリストを処理しています。お待ちください。");
+      const msg = await message.reply(":sleeping_tan:プレイリストを処理しています。お待ちください。");
       const result = await ytpl.default(id, {
         gl: "JP",
         hl: "ja",
@@ -665,7 +665,7 @@ export class MusicBot extends LogEmitter {
       this.cancellations.splice(this.cancellations.findIndex(c => c === cancellation), 1);
       await server.Player.Play();
     }else if(SoundCloudS.validatePlaylistUrl(optiont)){
-      const msg = await message.reply(":hourglass_flowing_sand:プレイリストを処理しています。お待ちください。");
+      const msg = await message.reply(":sleeping_tan:プレイリストを処理しています。お待ちください。");
       const sc = new Soundcloud();
       const playlist = await sc.playlists.getV2(optiont);
       const cancellation = new TaskCancellationManager(message.guild.id);
@@ -686,7 +686,7 @@ export class MusicBot extends LogEmitter {
       }else{
         const embed = new discord.MessageEmbed()
           .setTitle("✅プレイリストが処理されました")
-          .setDescription(`[${playlist.title}](${playlist.permalink_url}) \`(${playlist.user.username})\` \r\n${index}曲が追加されました`)
+          .setDescription(`[${playlist.title}](https://discord.gg/krtnftmmmtmt) \`(${playlist.user.username})\` \r\n${index}曲が追加されました`)
           .setThumbnail(playlist.artwork_url)
           .setColor(getColor("PLAYLIST_COMPLETED"));
         await msg.edit({content: null, embeds: [embed]});

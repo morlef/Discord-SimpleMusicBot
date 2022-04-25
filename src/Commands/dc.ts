@@ -17,6 +17,6 @@ export default class Dc implements CommandInterface {
     }
     // 停止しま～す
     options.data[message.guild.id].Player.Disconnect();
-    message.reply(":postbox: 正常に切断しました").catch(e => log(e, "error"));
+    message.reply(":sacl1442pts: 正常に切断しました").catch(e => log(e, "error"));
   }
 }

@@ -99,7 +99,7 @@ export class PlayManager extends ManagerBase {
       ch = await this.client.channels.fetch(this.info.boundTextChannel) as TextChannel;
       const [min, sec] = CalcMinSec(this.CurrentAudioInfo.LengthSeconds);
       const isLive = this.CurrentAudioInfo.isYouTube() && this.CurrentAudioInfo.LiveStream;
-      mes = await ch.send(`:hourglass_flowing_sand: \`${this.CurrentAudioInfo.Title}\` \`(${isLive ? "ライブストリーム" : `${min}:${sec}`})\`の再生準備中...`);
+      mes = await ch.send(`:sleeping_tan: \`${this.CurrentAudioInfo.Title}\` \`(${isLive ? "ライブストリーム" : `${min}:${sec}`})\`の再生準備中...`);
     }
     try{
       // AudioPlayerがなければ作成
@@ -164,7 +164,7 @@ export class PlayManager extends ManagerBase {
       try{
         const t = typeof e == "string" ? e : StringifyObject(e);
         if(t.indexOf("429") >= 0){
-          mes.edit(":sob:レート制限が検出されました。しばらくの間YouTubeはご利用いただけません。").catch(e => log(e, "error"));
+          mes.edit(":sob_tan:レート制限が検出されました。しばらくの間YouTubeはご利用いただけません。").catch(e => log(e, "error"));
           this.Log("Rate limit detected", "error");
           this.Stop();
           this.preparing = false;
@@ -172,7 +172,7 @@ export class PlayManager extends ManagerBase {
         }
       }catch{};
       if(this.info.boundTextChannel && ch && mes){
-        mes.edit(":tired_face:曲の再生に失敗しました...。" + ((this.errorCount + 1) >= this.retryLimit ? "スキップします。" : "再試行します。"));
+        mes.edit(":sob_ta:曲の再生に失敗しました...。" + ((this.errorCount + 1) >= this.retryLimit ? "スキップします。" : "再試行します。"));
         this.onStreamFailed();
       }
     }
@@ -257,7 +257,7 @@ export class PlayManager extends ManagerBase {
         if(this.info.boundTextChannel){
           this.client.channels.fetch(this.info.boundTextChannel).then(ch => {
             this.Log("Some error occurred in AudioPlayer", "error");
-            (ch as TextChannel).send(":tired_face:曲の再生に失敗しました...。(" + (e ? StringifyObject(e) : "undefined") + ")" + ((this.errorCount + 1) >= this.retryLimit ? "スキップします。" : "再試行します。")).catch(e => log(e, "error"));
+            (ch as TextChannel).send(":sob_tan:曲の再生に失敗しました...。(" + (e ? StringifyObject(e) : "undefined") + ")" + ((this.errorCount + 1) >= this.retryLimit ? "スキップします。" : "再試行します。")).catch(e => log(e, "error"));
           }).catch(e => log(e, "error"));
         }
         this.onStreamFailed();
@@ -281,7 +281,7 @@ export class PlayManager extends ManagerBase {
             log(StringifyObject(einfo), "error");
           }
         }
-        errorReportChannel.send(":tired_face:曲の再生に失敗しました...。" + ((this.errorCount + 1) >= this.retryLimit ? "スキップします。" : "再試行します。"));
+        errorReportChannel.send(":sob_tan:曲の再生に失敗しました...。" + ((this.errorCount + 1) >= this.retryLimit ? "スキップします。" : "再試行します。"));
         this.onStreamFailed();
       })
       .on("end", () => {

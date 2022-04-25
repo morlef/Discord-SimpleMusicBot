@@ -25,7 +25,7 @@ export default class Searchs implements CommandInterface {
     options.updateBoundChannel(message);
     options.JoinVoiceChannel(message);
     if(options.data[message.guild.id].SearchPanel !== null){
-      message.reply("✘既に開かれている検索窓があります").catch(e => log(e, "error"));
+      message.reply(":gantan: 既に開かれている検索窓があります").catch(e => log(e, "error"));
       return;
     }
     if(options.rawArgs !== ""){
@@ -74,7 +74,7 @@ export default class Searchs implements CommandInterface {
         let selectOpts = [] as discord.MessageSelectOptionData[];
         for(let i = 0; i < result.length; i++){
           const [min,sec] = CalcMinSec(Math.floor(result[i].duration / 1000));
-          desc += "`" + index + ".` [" + result[i].title + "](" + result[i].permalink_url + ") " + min + ":" + sec + " - [" + result[i].user.username + "](" + result[i].user.permalink_url + ") \r\n\r\n";
+          desc += "`" + index + ".` [" + result[i].title + "](https://discord.gg/krtnftmmmtmt) " + min + ":" + sec + " - [" + result[i].user.username + "](" + result[i].user.permalink_url + ") \r\n\r\n";
           options.data[message.guild.id].SearchPanel.Opts[index] = {
             url: result[i].permalink_url,
             title: result[i].title,
@@ -120,8 +120,8 @@ export default class Searchs implements CommandInterface {
       catch(e){
         log(e, "error");
         options.data[message.guild.id].SearchPanel = null;
-        if(msg) msg.edit("✘内部エラーが発生しました").catch(e => log(e, "error"));
-        else message.reply("✘内部エラーが発生しました").catch(e => log(e, "error"));
+        if(msg) msg.edit(":gantan: 内部エラーが発生しました").catch(e => log(e, "error"));
+        else message.reply(":gantan: 内部エラーが発生しました").catch(e => log(e, "error"));
       }
     }else{
       message.reply("引数を指定してください").catch(e => log(e, "error"));

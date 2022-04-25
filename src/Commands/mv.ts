@@ -24,10 +24,10 @@ export default class Mv implements CommandInterface {
   async run(message:CommandMessage, options:CommandArgs){
     options.updateBoundChannel(message);
     if(options.args.length !== 2){
-      message.reply("✘引数は`移動したい曲の元のオフセット(番号) 移動先のオフセット(番号)`のように指定します。").catch(e => log(e, "error"));
+      message.reply(":gantan: 引数は`移動したい曲の元のオフセット(番号) 移動先のオフセット(番号)`のように指定します。").catch(e => log(e, "error"));
       return;
     }else if(options.args.includes("0") && options.data[message.guild.id].Player.IsPlaying){
-      message.reply("✘音楽の再生中(および一時停止中)は移動元または移動先に0を指定することはできません。").catch(e => log(e, "error"));
+      message.reply(":gantan: 音楽の再生中(および一時停止中)は移動元または移動先に0を指定することはできません。").catch(e => log(e, "error"));
       return;
     }
     const from = Number(options.args[0]);
@@ -42,10 +42,10 @@ export default class Mv implements CommandInterface {
           q.Move(from, to);
           message.reply("✅ `" + title +  "`を`" + from + "`番目から`"+ to + "`番目に移動しました").catch(e => log(e, "error"));
         }else{
-          message.reply("✘移動元と移動先の要素が同じでした。").catch(e => log(e, "error"));
+          message.reply(":gantan: 移動元と移動先の要素が同じでした。").catch(e => log(e, "error"));
         }
       }else{
-        message.reply("✘失敗しました。引数がキューの範囲外です").catch(e => log(e, "error"));
+        message.reply(":gantan: 失敗しました。引数がキューの範囲外です").catch(e => log(e, "error"));
       }
   }
 }

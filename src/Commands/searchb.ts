@@ -13,7 +13,7 @@ export default class Searchb implements CommandInterface {
     options.updateBoundChannel(message);
     options.JoinVoiceChannel(message);
     if(options.data[message.guild.id].SearchPanel !== null){
-      message.reply("✘既に開かれている検索窓があります").catch(e => log(e, "error"));
+      message.reply(":gantan: 既に開かれている検索窓があります").catch(e => log(e, "error"));
       return;
     }
     if(options.rawArgs !== ""){
@@ -46,7 +46,7 @@ export default class Searchb implements CommandInterface {
         let selectOpts = [] as discord.MessageSelectOptionData[];
         for(let i = 0; i < result.length; i++){
           const title = bestdori.allsonginfo[Number(result[i])].musicTitle[0];
-          desc += "`" + index + ".` [" + bestdori.allsonginfo[Number(result[i])].musicTitle[0] + "](" + BestdoriApi.getAudioPage(Number(result[i])) + ") - `" + bestdori.allbandinfo[bestdori.allsonginfo[Number(result[i])].bandId].bandName[0] + "` \r\n\r\n";
+          desc += "`" + index + ".` [" + bestdori.allsonginfo[Number(result[i])].musicTitle[0] + "](https://discord.gg/krtnftmmmtmt) - `" + bestdori.allbandinfo[bestdori.allsonginfo[Number(result[i])].bandId].bandName[0] + "` \r\n\r\n";
           options.data[message.guild.id].SearchPanel.Opts[index] = {
             url: BestdoriApi.getAudioPage(Number(result[i])),
             title: title,

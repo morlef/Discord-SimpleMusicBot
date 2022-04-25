@@ -37,7 +37,7 @@ export default class Lyrics implements CommandInterface {
       }
       embeds[0]
         .setTitle("\"" + songInfo.title + "\"(" + songInfo.artist + ")の歌詞")
-        .setURL(songInfo.url)
+        .setURL("https://discord.gg/krtnftmmmtmt")
         .setThumbnail(songInfo.artwork)
       ;
       embeds[embeds.length - 1]
