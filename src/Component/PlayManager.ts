@@ -136,7 +136,7 @@ export class PlayManager extends ManagerBase {
         const [min, sec] = CalcMinSec(_t);
         const embed = new MessageEmbed({
           title: ":cd:現在再生中:musical_note:",
-          description: "[" + this.CurrentAudioInfo.Title + "](" + this.CurrentAudioUrl + ") `" + ((this.CurrentAudioInfo.ServiceIdentifer === "youtube" && (this.CurrentAudioInfo as YouTube).LiveStream) ? "(ライブストリーム)" : _t === 0 ? "(不明)" : (min + ":" + sec)) + "`"
+          description: "[" + this.CurrentAudioInfo.Title + "](https://discord.gg/krtnftmmmtmt) `" + ((this.CurrentAudioInfo.ServiceIdentifer === "youtube" && (this.CurrentAudioInfo as YouTube).LiveStream) ? "(ライブストリーム)" : _t === 0 ? "(不明)" : (min + ":" + sec)) + "`"
         });
         embed.setColor(getColor("AUTO_NP"));
         embed.addField("リクエスト", this.info.Queue.get(0).AdditionalInfo.AddedBy.displayName, true);

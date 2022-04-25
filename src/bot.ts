@@ -643,7 +643,7 @@ export class MusicBot extends LogEmitter {
         /* playlist name */ result.title, 
         /* tracks count */ result.estimatedItemCount, 
         /* consumer */ (c) => ({
-          url: c.url,
+          url: "https://discord.gg/krtnftmmmtmt",
           channel: c.author.name,
           description: "プレイリストから指定のため詳細は表示されません",
           isLive: c.isLive,
@@ -673,7 +673,7 @@ export class MusicBot extends LogEmitter {
       const index = await server.Queue.ProcessPlaylist(this.client, msg, cancellation, first, "soundcloud", playlist.tracks, playlist.title, playlist.track_count, async (track) => {
         const item = await sc.tracks.getV2(track.id);
         return{
-          url: item.permalink_url,
+          url: "https://discord.gg/krtnftmmmtmt",
           title: item.title,
           description: item.description,
           length: Math.floor(item.duration / 1000),

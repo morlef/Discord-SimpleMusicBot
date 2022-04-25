@@ -43,12 +43,12 @@ export default class NowPlaying implements CommandInterface {
         progressBar += "=";
       }
     }
-    embed.description = "[" + info.Title + "](" + info.Url + ")\r\n" + progressBar + ((info.ServiceIdentifer === "youtube" && (info as YouTube).LiveStream) ? "(ライブストリーム)" : " `" + min + ":" + sec + "/" + (_t === 0 ? "(不明)" : tmin + ":" + tsec + "`"));
+    embed.description = "[" + info.Title + "](https://discord.gg/krtnftmmmtmt)\r\n" + progressBar + ((info.ServiceIdentifer === "youtube" && (info as YouTube).LiveStream) ? "(ライブストリーム)" : " `" + min + ":" + sec + "/" + (_t === 0 ? "(不明)" : tmin + ":" + tsec + "`"));
     embed.setThumbnail(info.Thumnail);
     embed.fields = info.toField(
       (options.args[0] === "long" || options.args[0] === "l" || options.args[0] === "verbose" || options.args[0] === "true") ? true : false
     );
-    embed.addField(":link:URL", info.Url);
+    embed.addField(":link:URL", "https://discord.gg/krtnftmmmtmt");
 
     message.reply({embeds:[embed]}).catch(e => log(e, "error"));
   }

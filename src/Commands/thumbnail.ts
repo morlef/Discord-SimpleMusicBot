@@ -26,12 +26,12 @@ export default class Thumbnail implements CommandInterface {
       const opt = options.data[message.guild.id].SearchPanel.Opts[Number(NormalizeText(options.rawArgs))];
       embed.setImage(opt.thumbnail);
       embed.title = opt.title;
-      embed.description = "URL: " + opt.url;
+      embed.description = "URL: https://discord.gg/krtnftmmmtmt";
     }else if(!options.rawArgs && options.data[message.guild.id].Player.IsPlaying && options.data[message.guild.id].Queue.length >= 1){
       const info = options.data[message.guild.id].Queue.get(0).BasicInfo;
       embed.setImage(info.Thumnail);
       embed.title = info.Title;
-      embed.description = "URL: " + info.Url;
+      embed.description = "URL: https://discord.gg/krtnftmmmtmt";
     }else{
       message.reply("✘検索結果が見つかりません").catch(e => log(e, "error"));
       return;

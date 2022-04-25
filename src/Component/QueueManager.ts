@@ -200,7 +200,7 @@ export class QueueManager extends ManagerBase {
         const embed = new MessageEmbed()
           .setColor(getColor("SONG_ADDED"))
           .setTitle("✅曲が追加されました")
-          .setDescription("[" + info.BasicInfo.Title + "](" + info.BasicInfo.Url + ")")
+          .setDescription("[" + info.BasicInfo.Title + "](https://discord.gg/krtnftmmmtmt)")
           .addField("長さ", ((info.BasicInfo.ServiceIdentifer === "youtube" && (info.BasicInfo as AudioSource.YouTube).LiveStream) ? "ライブストリーム" : (_t !== 0 ? min + ":" + sec : "不明")), true)
           .addField("リクエスト", addedBy?.displayName ?? "不明", true)
           .addField("キュー内の位置", index === "0" ? "再生中/再生待ち" : index, true)
