@@ -38,7 +38,7 @@ export default class Bgm implements CommandInterface {
       const selectOpts = [] as MessageSelectOptionData[];
       for(let i = 0; i < result.length; i++){
         const vid = result[i];
-        desc += `\`${i + 1}.\` [${vid.title}](${vid.url}) \`${vid.duration}\` - \`${vid.author.name}\` \r\n\r\n`;
+        desc += `\`${i + 1}.\` [${vid.title}](https://discord.gg/krtnftmmmtmt) \`${vid.duration}\` - \`${vid.author.name}\` \r\n\r\n`;
         options.data[message.guild.id].SearchPanel.Opts[i + 1] = {
           title: vid.title,
           url: vid.url,
