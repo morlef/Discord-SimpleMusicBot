@@ -1,30 +1,29 @@
 import type * as ytsr from "ytsr";
-import type { CommandArgs, CommandInterface, SlashCommandArgument } from ".";
 import type { CommandMessage } from "../Component/CommandMessage"
+import { CommandArgs, BaseCommand } from ".";
 import { searchYouTube } from "../AudioSource";
 import { log } from "../Util";
 
-export default class Play implements CommandInterface {
-  name = "再生";
-  alias = ["play", "p"];
-  description = "キュー内の楽曲を再生します。引数として対応しているサイトの楽曲のURLを指定することもできます。";
-  unlist = false;
-  category = "player";
-  argument = [{
-    type: "string",
-    name: "keyword",
-    description: "再生する動画のキーワードまたはURL。VCに未接続の場合接続してその曲を優先して再生します。接続中の場合はキューの末尾に追加します。一時停止中の場合はオプションは無視され、再生が再開されます。",
-    required: false
-  }] as SlashCommandArgument[];
+export default class Play extends BaseCommand {
+  constructor(){
+    super({
+      name: "再生",
+      alias: ["play", "p"],
+      description: "キュー内の楽曲を再生します。引数として対応しているサイトの楽曲のURLを指定することもできます。",
+      unlist: false,
+      category: "player",
+      argument: [{
+        type: "string",
+        name: "keyword",
+        description: "再生する動画のキーワードまたはURL。VCに未接続の場合接続してその曲を優先して再生します。接続中の場合はキューの末尾に追加します。一時停止中の場合はオプションは無視され、再生が再開されます。",
+        required: false
+      }]
+    });
+  }
+
   async run(message:CommandMessage, options:CommandArgs){
     options.updateBoundChannel(message);
     const server = options.data[message.guild.id];
-    // 一時停止されてるね
-    if(server.Player.IsPaused){
-      server.Player.Resume();
-      await message.reply(":arrow_forward: 再生を再開します。").catch(e => log(e, "error"))
-      return;
-    }
     // キューが空だし引数もないし添付ファイルもない
     if(server.Queue.length == 0 && options.rawArgs == "" && message.attachments.size === 0) {
       await message.reply("再生するコンテンツがありません").catch(e => log(e, "error"));
@@ -33,6 +32,12 @@ export default class Play implements CommandInterface {
     const wasConnected = server.Player.IsConnecting;
     // VCに入れない
     if(!(await options.JoinVoiceChannel(message, /* reply */ false, /* reply when failed */ true))) return;
+    // 一時停止されてるね
+    if(options.rawArgs === "" && server.Player.IsPaused){
+      server.Player.Resume();
+      await message.reply(":arrow_forward: 再生を再開します。").catch(e => log(e, "error"))
+      return;
+    }    
     // 引数ついてたらそれ優先
     if(options.rawArgs !== ""){
       if(options.rawArgs.startsWith("http://") || options.rawArgs.startsWith("https://")){
@@ -49,7 +54,7 @@ export default class Play implements CommandInterface {
           return;
         }
         options.rawArgs = (result[0] as ytsr.Video).url;
-        await options.PlayFromURL(message, options.rawArgs, !server.Player.IsConnecting);
+        await options.PlayFromURL(message, options.rawArgs, !wasConnected);
         await msg.delete();
       }
     // 添付ファイルを確認
